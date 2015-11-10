@@ -16,7 +16,7 @@ How to run on Windows:
 How to run on Linux & Mac OS X:
 
 - download by pressing "Download Zip";
-- unzip seceure-pin-generator.zip and/or just navigate to "seceure-pin-generator" folder in terminal
+- unzip seceure-pin-generator-master.zip and/or just navigate to "seceure-pin-generator-master" folder in terminal
 - in terminal: user$ python secure-pin.py 
 
 
