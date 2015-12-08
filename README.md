@@ -1,8 +1,7 @@
 # secure-pin-generator
 
 Generate PINs. It works with list of exclusions of most commonly used PINs, that based on leaked passwords reviews.
-Right now generator doesn't exclude your birthdate from selection. But I intend to add this function in the near future.
-
+Generator will exclude your birthdate from selection, at your request.
 
 -----------------------------------------------------------------------------------------------------
 
@@ -18,5 +17,3 @@ How to run on Linux & Mac OS X:
 - download by pressing "Download Zip";
 - unzip seceure-pin-generator-master.zip and/or just navigate to "seceure-pin-generator-master" folder in terminal
 - in terminal: user$ python secure-pin.py 
-
-
