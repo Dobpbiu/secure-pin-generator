@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 
 '''
 
@@ -148,6 +148,122 @@ selection = set(All_PIN)-set(exclusions)
 
 YOUR_PIN = random.choice(list(selection))
 
-print '------------------------'
-print 'your secure PIN is: ' + YOUR_PIN
-print '------------------------'
+print ('------------------------')
+print ('your secure PIN is: ' + YOUR_PIN)
+print ('------------------------')
+
+
+
+prompt = 'more personalized PIN, that will excludes patterns of your day of birth? Yes / No ? '
+
+prompt_day = 'please, enter your day of birth in numbers (from 1 to 31 only): '
+prompt_day_error = 'Invalid Data, ' + prompt_day[:-2]
+
+prompt_month = 'please, enter your month of birth in numbers (from 1 to 12 only): '
+prompt_month_error = 'Invalid Data, ' + prompt_month[:-2]
+
+prompt_year = 'please, enter your year of birth in numbers (ex. 1990): '
+prompt_year_error = 'Invalid Data, ' + prompt_year[:-2]
+
+
+
+"""
+Next exception is for Python 2 and Python 3 compatibility.
+
+"""
+
+try:
+	input = raw_input
+except NameError:
+	pass
+
+
+birth_day_range = list(range(1,32))
+birth_month_range = list(range(1,13))
+birth_year_range = list(range(1900,2017))
+
+"""
+Next functions check the input data, 
+that returns its only if data in appropriate view and range.
+"""
+
+def check_day(number):
+	number = None
+	global prompt_day, prompt_day_error
+	while not number:
+		try:
+			number = int(input(prompt_day))
+		except ValueError:
+			print (prompt_day_error)
+	if number in birth_day_range:
+		prompt_day = number
+		return prompt_day
+	else:
+		check_day(number)
+
+def check_month(number):
+	number = None
+	global prompt_month, prompt_month_error
+	while not number:
+		try:
+			number = int(input(prompt_month))
+		except ValueError:
+			print (prompt_month_error)
+	if number in birth_month_range:
+		prompt_month = number
+		return prompt_month
+	else:
+		check_month(number)
+
+def check_year(number):
+	number = None
+	global prompt_year, prompt_year_error
+	while not number:
+		try:
+			number = int(input(prompt_year))
+		except ValueError:
+			print (prompt_year_error)
+	if number in birth_year_range:
+		prompt_year = number
+		return prompt_year
+	else:
+		check_year(number)
+
+
+
+def pin_constructor(day, month, year):
+	"""
+	This function construct the PIN on base of user input.
+	"""
+	if len(day) and len(month) == 2:
+		return  day+month, month+day, day+(year)[2:], month+(year)[2:], year, year[::-1], (year)[2:]+day,(year)[2:]+month
+	elif len(day) and len(month) == 1:
+		return '0'+day+'0'+month, '0'+month+"0"+day, "0"+day+(year)[2:], "0"+month+(year)[2:], year, year[::-1], (year)[2:]+"0"+day, (year)[2:]+'0'+month, day+month+(year)[2:], month+day+(year)[2:], (year)[2:]+month+day, (year)[2:]+day+month
+	elif len(day) == 1 and len(month) == 2:
+		return '0'+day+month, month+"0"+day, "0"+day+(year)[2:], month+(year)[2:], year, year[::-1], (year)[2:]+"0"+day, (year)[2:]+month
+	else:
+		return day+'0'+month, '0'+month+day, day+(year)[2:], "0"+month+(year)[2:], year, year[::-1], (year)[2:]+day, (year)[2:]+'0'+month
+
+
+
+def personal_pin(answer):
+	answer = input(prompt)
+	if answer in ['y', 'Y', 'yes', 'YES', 'Yes', 'ye']:
+		check_day(prompt_day)
+		check_month(prompt_month)
+		check_year(prompt_year)
+		day = str(prompt_day)
+		month = str(prompt_month)
+		year = str(prompt_year)
+		pin_user = pin_constructor(day, month, year)
+		personalized_selection = selection - set(pin_user)
+		YOUR_PERSONAL_PIN = random.choice(list(personalized_selection))
+		print ('------------------------')
+		print 'your personal secure PIN is: ' + str(YOUR_PERSONAL_PIN)
+		print ('------------------------')
+	else:
+		print ('------------------------')
+		print 'your secure PIN is: ' + str(YOUR_PIN)
+		print ('------------------------')
+
+personal_pin(prompt)
