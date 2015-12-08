@@ -154,7 +154,8 @@ print ('------------------------')
 
 
 
-prompt = 'more personalized PIN, that will excludes patterns of your day of birth? Yes / No ? '
+prompt = 'more personalized PIN, that will excludes patterns of your day of birth? \
+	Yes / No ? '
 
 prompt_day = 'please, enter your day of birth in numbers (from 1 to 31 only): '
 prompt_day_error = 'Invalid Data, ' + prompt_day[:-2]
